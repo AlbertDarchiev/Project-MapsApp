@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment1">
-
+    app:startDestination="@id/fragment_map">
     <fragment
-        android:id="@+id/fragment1"
+        android:id="@+id/fragment_map"
         android:name="com.example.m08_mapsapp.view.MapFragment"
-        android:label="fragment_1"
+        android:label="fragment_map"
         tools:layout="@layout/fragment_map"/>
 
 </navigation>

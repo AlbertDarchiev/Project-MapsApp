@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="FRAGMENT1" android:id="@+id/fragment1"/>
+    <item android:title="TITLE" android:icon="@android:drawable/btn_dropdown" />
+    <item android:title="mapFragment" android:id="@+id/fragment_map"/>
 </menu>
