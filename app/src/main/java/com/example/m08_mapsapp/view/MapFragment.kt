@@ -1,12 +1,14 @@
 package com.example.m08_mapsapp.view
 
 import android.Manifest
+import androidx.core.view.*
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,11 +18,12 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 const val REQUEST_CODE_LOCATION = 100
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
     lateinit var map: GoogleMap
     lateinit var binding: FragmentMapBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -29,22 +32,30 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 //   val rootView =  inflater.inflate(R.layout.fragment_map, container, false)
         createMap()
         return binding.root
+
 //   return rootView
 
     }
 
 fun createMap(){
-   val mapFragment = childFragmentManager.findFragmentById(R.id.map) as     SupportMapFragment?
+   val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
    mapFragment?.getMapAsync(this)
 }
+
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         createMarker()
         enableLocation()
-}
+        map.setOnMapLongClickListener(this) //--
+
+    }
+    fun onMapLongClick(){
+
+    }
+
     fun createMarker(){
-   val coordinates = LatLng(41.4534227,2.1841046)
+    val coordinates = LatLng(41.4534227,2.1841046)
    val myMarker = MarkerOptions().position(coordinates).title("ITB")
    map.addMarker(myMarker)
    map.animateCamera(
@@ -134,10 +145,21 @@ fun createMap(){
         }
     }
 
+    override fun onMapLongClick(coord: LatLng) { // --
 
+        map.addMarker(MarkerOptions()
+            .position(coord)
+            .title("XXXXXXX")
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+        )
+//        parentFragmentManager.beginTransaction().apply {
+//            replace(R.id.fragment_map, AddLocationFragment())
+//            setReorderingAllowed(true)
+//            addToBackStack("name")
+//            commit()
+//        }
 
-
-
+    }
 
 
 }

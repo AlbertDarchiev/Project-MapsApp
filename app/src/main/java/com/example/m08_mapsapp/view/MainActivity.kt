@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.ActivityMainBinding
-
+//https://coolors.co/palette/000000-14213d-fca311-e5e5e5-ffffff
 class MainActivity: AppCompatActivity() {
     lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
