@@ -1,5 +1,4 @@
 package com.example.m08_mapsapp.view
-
 import android.Manifest
 import androidx.core.view.*
 import android.content.pm.PackageManager
@@ -12,8 +11,14 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentMapBinding
+import com.example.m08_mapsapp.viewmodel.MapViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,13 +29,20 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 const val REQUEST_CODE_LOCATION = 100
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
+    companion object{
+        var lat = 0.0
+        var long = 0.0
+    }
     lateinit var map: GoogleMap
     lateinit var binding: FragmentMapBinding
+    private lateinit var mapViewModel: MapViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentMapBinding.inflate(layoutInflater)
 //   val rootView =  inflater.inflate(R.layout.fragment_map, container, false)
         createMap()
+
         return binding.root
 
 //   return rootView
@@ -40,18 +52,18 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
 fun createMap(){
    val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
    mapFragment?.getMapAsync(this)
+
+    mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java) // viewModel Inicializar
+
 }
 
 
     override fun onMapReady(googleMap: GoogleMap) {
+        mapViewModel.map = googleMap
         map = googleMap
         createMarker()
         enableLocation()
         map.setOnMapLongClickListener(this) //--
-
-    }
-    fun onMapLongClick(){
-
     }
 
     fun createMarker(){
@@ -145,19 +157,27 @@ fun createMap(){
         }
     }
 
+
     override fun onMapLongClick(coord: LatLng) { // --
+        long = coord.longitude
+        lat = coord.latitude
+
+            val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
+            findNavController().navigate(action)
 
         map.addMarker(MarkerOptions()
             .position(coord)
             .title("XXXXXXX")
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
         )
-//        parentFragmentManager.beginTransaction().apply {
+
+    //        parentFragmentManager.beginTransaction().apply {
 //            replace(R.id.fragment_map, AddLocationFragment())
 //            setReorderingAllowed(true)
 //            addToBackStack("name")
 //            commit()
 //        }
+
 
     }
 

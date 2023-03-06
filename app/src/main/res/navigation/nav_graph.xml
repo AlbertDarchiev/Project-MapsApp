@@ -8,6 +8,15 @@
         android:id="@+id/fragment_map"
         android:name="com.example.m08_mapsapp.view.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map"/>
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/action_fragment_map_to_addLocationFragment"
+            app:destination="@id/addLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addLocationFragment"
+        android:name="com.example.m08_mapsapp.view.AddLocationFragment"
+        android:label="fragment_add_location"
+        tools:layout="@layout/fragment_add_location" />
 
 </navigation>

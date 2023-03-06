@@ -11,6 +11,7 @@
         android:layout_height="match_parent"/>
 
     <ImageButton
+        android:id="@+id/add_button"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@android:drawable/ic_delete"
