@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentAddLocationBinding
 import com.example.m08_mapsapp.viewmodel.MapViewModel
@@ -24,7 +25,6 @@ class AddLocationFragment : Fragment() {
     lateinit var binding: FragmentAddLocationBinding
     lateinit var map: GoogleMap
     private lateinit var mapViewModel: MapViewModel
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -45,19 +45,23 @@ class AddLocationFragment : Fragment() {
         binding.longEditText.setText(MapFragment.long.toString())
 
         binding.button.setOnClickListener {
+            MapFragment().createMarker()
+
             var latitude = binding.latEditText.text.toString().toDouble()
             var longitude = binding.longEditText.text.toString().toDouble()
             var title = binding.titleEditText.text.toString()
-            CoroutineScope(Dispatchers.IO).launch {
-                createMarker(latitude, longitude, title)
-           }
-        }
-    }}
+            val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
+            findNavController().navigate(action)
 
+//            CoroutineScope(Dispatchers.IO).launch {
+//                createMarker(latitude, longitude, title)
+//
+        }
+    }
+    }
     fun createMarker(latV: Double, longV: Double, titleText: String){
         val coordinates = LatLng(latV, longV)
         val myMarker = MarkerOptions().position(coordinates).title(titleText)
         map.addMarker(myMarker)
-
     }
 }

@@ -7,14 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentMapBinding
@@ -45,21 +40,15 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
 
         return binding.root
 
-//   return rootView
-
+//   return rootViewf
     }
 
 fun createMap(){
    val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
    mapFragment?.getMapAsync(this)
-
-    mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java) // viewModel Inicializar
-
 }
 
-
     override fun onMapReady(googleMap: GoogleMap) {
-        mapViewModel.map = googleMap
         map = googleMap
         createMarker()
         enableLocation()
@@ -74,6 +63,12 @@ fun createMap(){
        CameraUpdateFactory.newLatLngZoom(coordinates, 18f),
        5000, null)
 }
+    fun createMarker2(){
+        val coordinates = LatLng(41.4534229,2.1841046)
+        val myMarker = MarkerOptions().position(coordinates).title("ITB")
+        map.addMarker(myMarker)
+
+    }
     private fun isLocationPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(requireContext(),
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
