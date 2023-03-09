@@ -10,18 +10,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentAddLocationBinding
+import com.example.m08_mapsapp.model.Location
+import com.example.m08_mapsapp.view.LoginFragment.Companion.emailLogged
 import com.example.m08_mapsapp.viewmodel.MapViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import com.google.firebase.firestore.FirebaseFirestore
 
 class AddLocationFragment : Fragment() {
+    private val db = FirebaseFirestore.getInstance()
     lateinit var binding: FragmentAddLocationBinding
     lateinit var map: GoogleMap
     private lateinit var mapViewModel: MapViewModel
@@ -36,28 +36,32 @@ class AddLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
+//        mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 
-        val map = mapViewModel.map
-        if (map != null) {
 
         binding.latEditText.setText(MapFragment.lat.toString())
         binding.longEditText.setText(MapFragment.long.toString())
 
         binding.button.setOnClickListener {
-            MapFragment().createMarker()
+            db.collection("location").document(emailLogged!!).set(
+                hashMapOf
+                ("name" to binding.titleEditText.text.toString(),
+                    "latitude" to binding.latEditText.text.toString(),
+                    "longitude" to binding.longEditText.text.toString())
+            )
+            findNavController().navigate(R.id.action_addLocationFragment_to_fragment_map)
 
-            var latitude = binding.latEditText.text.toString().toDouble()
-            var longitude = binding.longEditText.text.toString().toDouble()
-            var title = binding.titleEditText.text.toString()
-            val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
-            findNavController().navigate(action)
 
-//            CoroutineScope(Dispatchers.IO).launch {
-//                createMarker(latitude, longitude, title)
-//
+
+//            var latitude = binding.latEditText.text.toString().toDouble()
+//            var longitude = binding.longEditText.text.toString().toDouble()
+//            var title = binding.titleEditText.text.toString()
+//            val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
+//            findNavController().navigate(action)
+
+
         }
-    }
+
     }
     fun createMarker(latV: Double, longV: Double, titleText: String){
         val coordinates = LatLng(latV, longV)
