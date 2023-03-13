@@ -43,7 +43,7 @@ class AddLocationFragment : Fragment() {
         binding.longEditText.setText(MapFragment.long.toString())
 
         binding.button.setOnClickListener {
-            db.collection("location").document(emailLogged!!).set(
+            db.collection("users").document(emailLogged!!).set(
                 hashMapOf
                 ("name" to binding.titleEditText.text.toString(),
                     "latitude" to binding.latEditText.text.toString(),
