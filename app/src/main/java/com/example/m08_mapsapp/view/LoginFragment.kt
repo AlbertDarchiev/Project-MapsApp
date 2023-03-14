@@ -24,7 +24,6 @@ class LoginFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         binding = FragmentLoginBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         return binding.root
@@ -32,7 +31,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         binding.logButton.setOnClickListener {
         val email = binding.mailEText.text.toString()
@@ -59,6 +57,7 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
         binding.add.setOnClickListener {
+            Toast.makeText(activity, "currentUser: $emailLogged", Toast.LENGTH_SHORT).show()
             val documentReference = db.collection("test").document("asdasd")
             val data = hashMapOf(
                 "name" to "testName",

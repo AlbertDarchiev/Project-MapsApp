@@ -38,6 +38,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
 //   val rootView =  inflater.inflate(R.layout.fragment_map, container, false)
         createMap()
 
+        val a = AddLocationFragment().updateMarks()
+        println("TESTLIST: "+ a)
+
         return binding.root
 
 //   return rootViewf
@@ -131,6 +134,8 @@ fun createMap(){
     }
 
     override fun onResume() {
+
+
         super.onResume()
         if(!::map.isInitialized) return
         if(!isLocationPermissionGranted()){
@@ -159,20 +164,6 @@ fun createMap(){
 
             val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
             findNavController().navigate(action)
-
-        map.addMarker(MarkerOptions()
-            .position(coord)
-            .title("XXXXXXX")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-        )
-
-    //        parentFragmentManager.beginTransaction().apply {
-//            replace(R.id.fragment_map, AddLocationFragment())
-//            setReorderingAllowed(true)
-//            addToBackStack("name")
-//            commit()
-//        }
-
 
     }
 
