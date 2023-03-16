@@ -31,31 +31,25 @@ class RegisterFragment : Fragment() {
         binding.regButton.setOnClickListener {
             val email = binding.mailEText.text.toString()
             val password = binding.passEText.text.toString()
+            val password2 = binding.pass2EText.text.toString()
 
-            FirebaseAuth.getInstance().
-            createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if(it.isSuccessful){
-                        LoginFragment.emailLogged = it.result?.user?.email.toString()
-                        Toast.makeText(activity, "Usuari creat correctament", Toast.LENGTH_SHORT).show()
-
-//                        val data = hashMapOf("name" to "test")
-
-
-
-//                        db.collection("users")
-//                            .document(email)
-//                            .set(data)
-//                            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-//                            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
-                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            if (password2 == password) {
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            LoginFragment.emailLogged = it.result?.user?.email.toString()
+                            Toast.makeText(activity, "Usuari creat correctament", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                        } else {
+                            Toast.makeText(
+                                activity,
+                                "Error al registrar l'usuari",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                    else{
-                        Toast.makeText(activity, "Error al registrar l'usuari", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
+            }
+            else Toast.makeText(activity, "Les contrasenyes no son iguals", Toast.LENGTH_SHORT).show()
 
         }
 

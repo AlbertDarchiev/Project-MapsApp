@@ -10,9 +10,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentMapBinding
+import com.example.m08_mapsapp.model.Location
 import com.example.m08_mapsapp.viewmodel.MapViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,7 +27,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 const val REQUEST_CODE_LOCATION = 100
-class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
+class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener{
     companion object{
         var lat = 0.0
         var long = 0.0
@@ -35,11 +39,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentMapBinding.inflate(layoutInflater)
-//   val rootView =  inflater.inflate(R.layout.fragment_map, container, false)
-        createMap()
+        mapViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
 
-        val a = AddLocationFragment().updateMarks()
-        println("TESTLIST: "+ a)
+        createMap()
 
         return binding.root
 
@@ -157,10 +159,12 @@ fun createMap(){
         }
     }
 
-
     override fun onMapLongClick(coord: LatLng) { // --
         long = coord.longitude
         lat = coord.latitude
+        mapViewModel.locationMap.value = Location("namee", lat, long)
+        Toast.makeText(requireContext(), "${mapViewModel.locationMap.value}",Toast.LENGTH_SHORT).show()
+//        mapViewModel.saveLocation()
 
             val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
             findNavController().navigate(action)

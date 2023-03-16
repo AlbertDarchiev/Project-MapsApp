@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentAddLocationBinding
@@ -18,6 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 class AddLocationFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
     lateinit var binding: FragmentAddLocationBinding
+    private lateinit var mapViewModel: MapViewModel
+
     var currentUserDB = db.collection("users").document(emailLogged!!)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -30,13 +34,21 @@ class AddLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
+
+        mapViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
 
 
         binding.latEditText.setText(MapFragment.lat.toString())
         binding.longEditText.setText(MapFragment.long.toString())
 
+        mapViewModel.locationMap.observe(viewLifecycleOwner){ Location ->
+            Toast.makeText(activity, "AAAAAA ${Location}", Toast.LENGTH_SHORT).show()
+
+//            Log.d("AddLocationFragment", "Location: $location")
+        }
         binding.button.setOnClickListener {
+            Toast.makeText(activity, "${mapViewModel.locationMap.value?.latitude}", Toast.LENGTH_SHORT).show()
+
             updateMarks()
                     db.collection("users").document(emailLogged).collection("locations").add(
                         hashMapOf
