@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".view.AddLocationFragment"
     android:background="#FCA311"
-
     >
 
     <TextView
         android:textColor="@color/dark_blue"
         android:id="@+id/textView"
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
+        android:background="@color/gray"
+        android:padding="5dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="ADD LOCATION"
         android:textSize="30dp"
@@ -23,40 +24,55 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:layout_marginTop="30dp"
-        android:textSize="23dp"
+        android:layout_marginTop="8dp"
         android:id="@+id/lat_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="latitud"
+        android:width="250dp"
+        android:background="@drawable/backround_text_input"
+        android:gravity="center"
+        android:hint="latitude"
+        android:padding="5dp"
+        android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
+        android:width="250dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:background="@drawable/backround_text_input"
+
         android:textSize="23dp"
         android:layout_marginTop="15dp"
         android:id="@+id/long_editText"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/longitud"
+        android:hint="longitude"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lat_editText" />
 
     <EditText
+        android:width="200dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:background="@drawable/backround_text_input"
+        android:textSize="23dp"
+
         android:id="@+id/title_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="location name..."
+        android:hint="name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,9 +83,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/long_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="COORDINATES:"
+        android:textColor="@color/dark_blue"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_editText" />
 
     <Button
+
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="70dp"

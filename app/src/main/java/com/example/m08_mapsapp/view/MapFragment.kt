@@ -1,8 +1,10 @@
 package com.example.m08_mapsapp.view
 import android.Manifest
+import android.content.ContentValues
 import androidx.core.view.*
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +27,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.firestore.FirebaseFirestore
 
 const val REQUEST_CODE_LOCATION = 100
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener{
@@ -32,6 +35,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
         var lat = 0.0
         var long = 0.0
     }
+    private val db = FirebaseFirestore.getInstance()
     lateinit var map: GoogleMap
     lateinit var binding: FragmentMapBinding
     private lateinit var mapViewModel: MapViewModel
@@ -39,13 +43,22 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentMapBinding.inflate(layoutInflater)
-        mapViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+        mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 
+        println("CREATETEST1: "+mapViewModel.listOfLocations)
+        updateMarks()
         createMap()
-
         return binding.root
 
 //   return rootViewf
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.addButton.setOnClickListener {
+            mapViewModel.locationMap = Location(null, 0.0, 0.0)
+            findNavController().navigate(R.id.action_fragment_map_to_addLocationFragment)
+        }
     }
 
 fun createMap(){
@@ -56,6 +69,8 @@ fun createMap(){
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         createMarker()
+        println("CREATETEST2: "+mapViewModel.listOfLocations)
+
         enableLocation()
         map.setOnMapLongClickListener(this) //--
     }
@@ -66,7 +81,7 @@ fun createMap(){
    map.addMarker(myMarker)
    map.animateCamera(
        CameraUpdateFactory.newLatLngZoom(coordinates, 18f),
-       5000, null)
+       3000, null)
 }
     fun createMarker2(){
         val coordinates = LatLng(41.4534229,2.1841046)
@@ -137,6 +152,8 @@ fun createMap(){
 
     override fun onResume() {
 
+        println("CREATETEST3: "+mapViewModel.listOfLocations)
+
 
         super.onResume()
         if(!::map.isInitialized) return
@@ -160,15 +177,40 @@ fun createMap(){
     }
 
     override fun onMapLongClick(coord: LatLng) { // --
-        long = coord.longitude
-        lat = coord.latitude
-        mapViewModel.locationMap.value = Location("namee", lat, long)
-        Toast.makeText(requireContext(), "${mapViewModel.locationMap.value}",Toast.LENGTH_SHORT).show()
-//        mapViewModel.saveLocation()
+        mapViewModel.locationMap = Location("", coord.latitude, coord.longitude)
+
+//        Toast.makeText(requireContext(), "${mapViewModel.locationMap}",Toast.LENGTH_SHORT).show()
 
             val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
             findNavController().navigate(action)
 
+    }
+    fun updateMarks(){
+        db.collection("users").document(LoginFragment.emailLogged).collection("locations")
+            .get()
+            .addOnSuccessListener { documents ->
+                var loc : Location
+                for (document in documents) {
+                    loc = Location(document.get("name").toString(), document.get("latitude").toString().toDouble(), document.get("longitude").toString().toDouble())
+                    println("PRINTVALUES: ${loc}")
+                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+
+                    val coordinates = LatLng(loc.latitude!!, loc.longitude!!)
+                    val myMarker = MarkerOptions().position(coordinates).title(loc.name)
+                    map.addMarker(myMarker)
+                }
+            }
+
+//        for (location in mapViewModel.listOfLocations) {
+//            println("RERER: "+location)
+//            val coordinates = LatLng(location.latitude, location.longitude)
+//            val myMarker = MarkerOptions().position(coordinates).title(location.name)
+//            map.addMarker(myMarker)
+////            map.animateCamera(
+////                CameraUpdateFactory.newLatLngZoom(coordinates, 18f),
+////                5000, null
+////            )
+//        }
     }
 
 

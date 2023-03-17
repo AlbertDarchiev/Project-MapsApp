@@ -8,14 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentAddLocationBinding
+import com.example.m08_mapsapp.model.Location
 import com.example.m08_mapsapp.view.LoginFragment.Companion.emailLogged
 import com.example.m08_mapsapp.viewmodel.MapViewModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.coroutineScope
 
 class AddLocationFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
@@ -34,44 +37,45 @@ class AddLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 
-        mapViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+        mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
+        Toast.makeText(activity, "${mapViewModel.locationMap.latitude}", Toast.LENGTH_SHORT).show()
+
+        binding.latEditText.setText(mapViewModel.locationMap.latitude.toString())
+        binding.longEditText.setText(mapViewModel.locationMap.longitude.toString())
 
 
-        binding.latEditText.setText(MapFragment.lat.toString())
-        binding.longEditText.setText(MapFragment.long.toString())
-
-        mapViewModel.locationMap.observe(viewLifecycleOwner){ Location ->
-            Toast.makeText(activity, "AAAAAA ${Location}", Toast.LENGTH_SHORT).show()
-
-//            Log.d("AddLocationFragment", "Location: $location")
-        }
         binding.button.setOnClickListener {
-            Toast.makeText(activity, "${mapViewModel.locationMap.value?.latitude}", Toast.LENGTH_SHORT).show()
+            mapViewModel.listOfLocations = mutableListOf()
+            Toast.makeText(activity, "${mapViewModel.locationMap.latitude}", Toast.LENGTH_SHORT).show()
 
-            updateMarks()
                     db.collection("users").document(emailLogged).collection("locations").add(
                         hashMapOf
                             ("name" to binding.titleEditText.text.toString(),
                             "latitude" to binding.latEditText.text.toString(),
                             "longitude" to binding.longEditText.text.toString())
                     )
-                    findNavController().navigate(R.id.action_addLocationFragment_to_fragment_map)
+
+                saveMarks()
+
+            println("RRRE"+mapViewModel.listOfLocations)
+
+            findNavController().navigate(R.id.action_addLocationFragment_to_fragment_map)
                 }
         }
-    fun updateMarks(): MutableList<String>{
-        val listLocations = mutableListOf<String>()
+    fun saveMarks(){
         db.collection("users").document(emailLogged).collection("locations")
             .get()
             .addOnSuccessListener { documents ->
+                var loc : Location
                 for (document in documents) {
-                    listLocations.add(document.get("name") as String)
-                    println("TESTDOC: ${document.get("latitude")}")
+                    loc = Location(document.get("name").toString(), document.get("latitude").toString().toDouble(), document.get("longitude").toString().toDouble())
+                    println("PRINTVALUES: ${loc}")
                     Log.d(TAG, "${document.id} => ${document.data}")
+                    mapViewModel.listOfLocations.add(loc)
+                    println("AABB: "+mapViewModel.listOfLocations)
                 }
             }
-        println("LISTLOCAT: "+ listLocations)
-        return listLocations
-
         }
     }

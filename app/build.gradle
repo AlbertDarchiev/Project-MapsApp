@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
     implementation platform('com.google.firebase:firebase-bom:31.2.3')
     // https://firebase.google.com/docs/android/setup#available-libraries

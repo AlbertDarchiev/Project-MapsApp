@@ -46,7 +46,6 @@ class LoginFragment : Fragment() {
                 }
                 else{
                     Toast.makeText(activity, "Error al iniciar sessió", Toast.LENGTH_SHORT).show()
-//                    showError("Error al registrar l'usuari")
                 }
             }
 
