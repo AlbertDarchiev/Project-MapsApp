@@ -31,6 +31,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.logButton.isEnabled = true
 
         binding.logButton.setOnClickListener {
         val email = binding.mailEText.text.toString()
@@ -39,14 +40,17 @@ class LoginFragment : Fragment() {
         FirebaseAuth.getInstance().
             signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
+                binding.logButton.isEnabled = false
                 if(it.isSuccessful){
                     emailLogged = it.result?.user?.email.toString()
                     Toast.makeText(activity, "WELCOME", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_loginFragment_to_fragment_map)
                 }
-                else{
-                    Toast.makeText(activity, "Error al iniciar sessió", Toast.LENGTH_SHORT).show()
-                }
+            }
+            .addOnFailureListener { e ->
+                binding.logButton.isEnabled = true
+                Toast.makeText(activity, "Error al iniciar sessió", Toast.LENGTH_SHORT).show()
+                Log.w(TAG, "Error login", e)
             }
 
 
@@ -67,9 +71,7 @@ class LoginFragment : Fragment() {
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(activity, "Error writing document", Toast.LENGTH_SHORT).show()
-                    println("TESTPRINT")
                     Log.w(TAG, "Error writing document", e)
-
                 }
         }
 }

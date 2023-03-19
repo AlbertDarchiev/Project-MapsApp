@@ -100,19 +100,29 @@
         app:layout_constraintTop_toBottomOf="@+id/title_editText" />
 
     <Button
+        android:id="@+id/takePhoto_button"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/gray"
+        android:text="TakePhoto"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/long_editText" />
 
+
+    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:layout_marginTop="8dp"
         android:backgroundTint="@color/gray"
         android:text="Save Location"
         android:textColor="@color/dark_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_editText" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

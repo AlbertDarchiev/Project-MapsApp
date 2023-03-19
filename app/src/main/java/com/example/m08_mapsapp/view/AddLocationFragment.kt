@@ -56,26 +56,7 @@ class AddLocationFragment : Fragment() {
                             "latitude" to binding.latEditText.text.toString(),
                             "longitude" to binding.longEditText.text.toString())
                     )
-
-                saveMarks()
-
-            println("RRRE"+mapViewModel.listOfLocations)
-
             findNavController().navigate(R.id.action_addLocationFragment_to_fragment_map)
                 }
-        }
-    fun saveMarks(){
-        db.collection("users").document(emailLogged).collection("locations")
-            .get()
-            .addOnSuccessListener { documents ->
-                var loc : Location
-                for (document in documents) {
-                    loc = Location(document.get("name").toString(), document.get("latitude").toString().toDouble(), document.get("longitude").toString().toDouble())
-                    println("PRINTVALUES: ${loc}")
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                    mapViewModel.listOfLocations.add(loc)
-                    println("AABB: "+mapViewModel.listOfLocations)
-                }
-            }
         }
     }
