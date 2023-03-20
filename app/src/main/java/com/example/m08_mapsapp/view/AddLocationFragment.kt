@@ -36,8 +36,6 @@ class AddLocationFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
     lateinit var binding: FragmentAddLocationBinding
     private lateinit var mapViewModel: MapViewModel
-    var currentUserDB = db.collection("users").document(emailLogged!!)
-    val img = Uri.fromFile(File("file:///storage/emulated/0/Android/media/com.example.m08_mapsapp/m08-MapsApp/2023-03-20-09-03-46-918.jpg"))
     lateinit var imageUri: Uri
 
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -47,12 +45,9 @@ class AddLocationFragment : Fragment() {
             if (data != null) {
                 imageUri = data.data!!
                 binding.imageVIew.setImageURI(imageUri)
-//                binding.imageVIew.setImageURI(mapViewModel.imageFile)
-
             }
         }
         }
-
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
