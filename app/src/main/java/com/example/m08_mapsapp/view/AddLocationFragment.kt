@@ -64,14 +64,16 @@ class AddLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 
-//            println("ASDASD: " + mapViewModel.imageFile.)
+        if (mapViewModel.imageFileIsNotNull){
+            imageUri = mapViewModel.imageFile
+            binding.imageVIew.setImageURI(imageUri)
+            mapViewModel.imageFileIsNotNull = false
+        }
 
         binding.latEditText.setText(mapViewModel.locationMap.latitude.toString())
         binding.longEditText.setText(mapViewModel.locationMap.longitude.toString())
-
 
         binding.button.setOnClickListener {
             mapViewModel.listOfLocations = mutableListOf()

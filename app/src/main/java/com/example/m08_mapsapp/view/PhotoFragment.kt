@@ -98,6 +98,7 @@ class PhotoFragment : Fragment() {
                     val msg = "Photo capture succeeded: $savedUri"
                     mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
                     mapViewModel.imageFile = savedUri
+                    mapViewModel.imageFileIsNotNull = true
                     Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
                     findNavController().navigate(R.id.action_photoFragment2_to_addLocationFragment)

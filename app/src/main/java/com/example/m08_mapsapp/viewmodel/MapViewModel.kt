@@ -8,5 +8,6 @@ class MapViewModel: ViewModel() {
     var locationMap = Location("", 0.0, 0.0)
     var listOfLocations = mutableListOf<Location>()
     lateinit var imageFile : Uri
+    var imageFileIsNotNull = false
 
 }
