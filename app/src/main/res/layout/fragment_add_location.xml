@@ -4,30 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AddLocationFragment"
     android:background="#FCA311"
-    >
+    tools:context=".view.AddLocationFragment">
 
     <TextView
-        android:textColor="@color/dark_blue"
         android:id="@+id/textView"
-        android:background="@color/gray"
-        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@color/gray"
         android:gravity="center"
+        android:padding="5dp"
         android:text="ADD LOCATION"
+        android:textColor="@color/dark_blue"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:layout_marginTop="8dp"
         android:id="@+id/lat_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:width="250dp"
         android:background="@drawable/backround_text_input"
         android:gravity="center"
@@ -39,43 +38,43 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:width="250dp"
-        android:gravity="center"
-        android:padding="5dp"
-        android:background="@drawable/backround_text_input"
-
-        android:textSize="23dp"
-        android:layout_marginTop="15dp"
         android:id="@+id/long_editText"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+
+        android:width="250dp"
+        android:background="@drawable/backround_text_input"
+        android:gravity="center"
+
         android:hint="longitude"
+        android:padding="5dp"
+        android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lat_editText" />
 
     <EditText
-        android:width="200dp"
-        android:gravity="center"
-        android:padding="5dp"
-        android:background="@drawable/backround_text_input"
-        android:textSize="23dp"
-
         android:id="@+id/title_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:width="200dp"
+
+        android:background="@drawable/backround_text_input"
+        android:gravity="center"
         android:hint="name"
+        android:padding="5dp"
+        android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
-        android:layout_marginTop="25dp"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="TILE:"
         android:textColor="@color/dark_blue"
@@ -86,10 +85,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:layout_marginTop="30dp"
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="COORDINATES:"
         android:textColor="@color/dark_blue"
@@ -103,14 +102,28 @@
         android:id="@+id/takePhoto_button"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
+        android:layout_marginEnd="30dp"
         android:backgroundTint="@color/gray"
         android:text="TakePhoto"
         android:textColor="@color/dark_blue"
         app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/long_editText" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
+    <Button
+        android:id="@+id/selectImage_button"
+
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginStart="30dp"
+        android:backgroundTint="@color/gray"
+        android:text="Select Image"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
         android:id="@+id/button"
@@ -122,7 +135,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"/>
+
+    <ImageView
+        android:padding="10dp"
+        android:id="@+id/imageVIew"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/long_editText"
+        tools:src="@tools:sample/date/hhmm"
+        android:background="@drawable/backround_text_input"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.73" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

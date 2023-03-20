@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_addLocationFragment_to_fragment_map"
             app:destination="@id/fragment_map" />
+        <action
+            android:id="@+id/action_addLocationFragment_to_photoFragment2"
+            app:destination="@id/photoFragment2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -42,6 +45,15 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoFragment2"
+        android:name="com.example.m08_mapsapp.view.PhotoFragment"
+        android:label="fragment_photo"
+        tools:layout="@layout/fragment_photo" >
+        <action
+            android:id="@+id/action_photoFragment2_to_addLocationFragment"
+            app:destination="@id/addLocationFragment" />
     </fragment>
 
 

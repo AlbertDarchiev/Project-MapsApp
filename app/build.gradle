@@ -39,6 +39,16 @@ android {
 }
 
 dependencies {
+    //FIREBASE STORAGE
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation 'com.google.firebase:firebase-storage-ktx'
+
+    //CAMERA
+    implementation "androidx.camera:camera-core:1.1.0-beta02"
+    implementation "androidx.camera:camera-camera2:1.1.0-beta02"
+    implementation "androidx.camera:camera-lifecycle:1.1.0-beta02"
+    implementation "androidx.camera:camera-view:1.1.0-beta02"
+    implementation "androidx.camera:camera-extensions:1.1.0-beta02"
 
 
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
