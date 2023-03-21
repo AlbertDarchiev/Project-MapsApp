@@ -61,18 +61,7 @@ class LoginFragment : Fragment() {
         }
         binding.add.setOnClickListener {
             Toast.makeText(activity, "currentUser: $emailLogged", Toast.LENGTH_SHORT).show()
-            val documentReference = db.collection("test").document("asdasd")
-            val data = hashMapOf(
-                "name" to "testName",
-            )
-            documentReference.set(data)
-                .addOnSuccessListener {
-                    Toast.makeText(activity, "DocumentSnapshot successfully written!", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(activity, "Error writing document", Toast.LENGTH_SHORT).show()
-                    Log.w(TAG, "Error writing document", e)
-                }
+            findNavController().navigate(R.id.action_loginFragment_to_locationsListFragment)
         }
 }
 }

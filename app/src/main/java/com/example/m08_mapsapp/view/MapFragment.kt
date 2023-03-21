@@ -56,7 +56,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addButton.setOnClickListener {
-            mapViewModel.locationMap = Location(null, 0.0, 0.0)
+            mapViewModel.locationMap = Location(null, 0.0, 0.0, "")
             findNavController().navigate(R.id.action_fragment_map_to_addLocationFragment)
         }
     }
@@ -151,10 +151,7 @@ fun createMap(){
     }
 
     override fun onResume() {
-
-        println("CREATETEST3: "+mapViewModel.listOfLocations)
-
-
+        Toast.makeText(requireContext(), mapViewModel.imageFilename, Toast.LENGTH_SHORT).show()
         super.onResume()
         if(!::map.isInitialized) return
         if(!isLocationPermissionGranted()){
@@ -177,9 +174,7 @@ fun createMap(){
     }
 
     override fun onMapLongClick(coord: LatLng) { // --
-        mapViewModel.locationMap = Location("", coord.latitude, coord.longitude)
-
-//        Toast.makeText(requireContext(), "${mapViewModel.locationMap}",Toast.LENGTH_SHORT).show()
+        mapViewModel.locationMap = Location("", coord.latitude, coord.longitude, "")
 
             val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
             findNavController().navigate(action)
@@ -191,7 +186,7 @@ fun createMap(){
             .addOnSuccessListener { documents ->
                 var loc : Location
                 for (document in documents) {
-                    loc = Location(document.get("name").toString(), document.get("latitude").toString().toDouble(), document.get("longitude").toString().toDouble())
+                    loc = Location(document.get("name").toString(), document.get("latitude").toString().toDouble(), document.get("longitude").toString().toDouble(), "")
                     println("PRINTVALUES: ${loc}")
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 

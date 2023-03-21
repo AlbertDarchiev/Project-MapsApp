@@ -97,6 +97,8 @@ class PhotoFragment : Fragment() {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo capture succeeded: $savedUri"
                     mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
+                    mapViewModel.imageFilename = photoFile.name.replace("-", "_").split(".")[0]
+                    Toast.makeText(requireContext(), mapViewModel.imageFilename, Toast.LENGTH_SHORT).show()
                     mapViewModel.imageFile = savedUri
                     mapViewModel.imageFileIsNotNull = true
                     Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
@@ -105,6 +107,7 @@ class PhotoFragment : Fragment() {
                 }
             })
     }
+
 
     private fun getOutputDirectory(): File {
         val mediaDir = requireContext().externalMediaDirs.firstOrNull()?.let {
