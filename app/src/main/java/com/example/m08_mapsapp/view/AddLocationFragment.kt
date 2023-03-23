@@ -60,7 +60,6 @@ class AddLocationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
-        Toast.makeText(requireContext(), mapViewModel.imageFilename, Toast.LENGTH_SHORT).show()
 
         if (mapViewModel.imageFileIsNotNull){
             imageUri = mapViewModel.imageFile
@@ -72,46 +71,31 @@ class AddLocationFragment : Fragment() {
         binding.longEditText.setText(mapViewModel.locationMap.longitude.toString())
 
         binding.button.setOnClickListener {
-            if (binding.imageVIew.drawable == null) Toast.makeText(requireContext(), "PUJA UNA IMATGE!", Toast.LENGTH_SHORT).show()
-            else if (binding.titleEditText.text.toString() != "" && binding.latEditText.text.toString() != "" && binding.latEditText.text.toString() != "") {
+            mapViewModel.listOfLocations = mutableListOf()
 
-                mapViewModel.listOfLocations = mutableListOf()
-
-                //GUARDAR IMAGEN EN FIREBASE STORAGE
-                val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
-                val now = Date()
-                val fileName = formatter.format(now)
-                val storage = FirebaseStorage.getInstance().getReference("images/$fileName")
-                mapViewModel.imageFilename = fileName
-                storage.putFile(imageUri)
-                    .addOnSuccessListener {
-                        binding.imageVIew.setImageURI(null)
-                        Toast.makeText(requireContext(), "Image uploaded!", Toast.LENGTH_SHORT).show()
-
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(requireContext(), "Image not uploaded!", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                //GUARDAR EN FIREBASE DATABASE
-                db.collection("users").document(emailLogged).collection("locations").add(
-                    hashMapOf
-                        (
-                        "name" to binding.titleEditText.text.toString(),
-                        "latitude" to binding.latEditText.text.toString(),
-                        "longitude" to binding.longEditText.text.toString(),
-                        "imageFilename" to mapViewModel.imageFilename
+                    db.collection("users").document(emailLogged).collection("locations").add(
+                        hashMapOf
+                            ("name" to binding.titleEditText.text.toString(),
+                            "latitude" to binding.latEditText.text.toString(),
+                            "longitude" to binding.longEditText.text.toString())
                     )
-                )
+            val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
+            val now = Date()
+            val fileName = formatter.format(now)
+            val storage = FirebaseStorage.getInstance().getReference("images/$fileName")
+//            imageUri = Uri.fromFile(mapViewModel.imageFile) //--------
+            storage.putFile(imageUri)
+                .addOnSuccessListener {
+                    binding.imageVIew.setImageURI(null)
+                    Toast.makeText(requireContext(), "Image uploaded!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Image not uploaded!", Toast.LENGTH_SHORT).show()
+                }
 
 
-
-                findNavController().navigate(R.id.action_addLocationFragment_to_fragment_map)
-            }
-            else Toast.makeText(requireContext(), "COMPLETA ELS CAMPS!", Toast.LENGTH_SHORT).show()
-
-        }
+            findNavController().navigate(R.id.action_addLocationFragment_to_fragment_map)
+                }
         binding.takePhotoButton.setOnClickListener {
             findNavController().navigate(R.id.action_addLocationFragment_to_photoFragment2)
         }
