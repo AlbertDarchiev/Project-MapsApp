@@ -6,6 +6,7 @@ import com.example.m08_mapsapp.model.Location
 import androidx.lifecycle.ViewModel
 import com.example.m08_mapsapp.model.allLocations
 import com.example.m08_mapsapp.view.LocationsListFragment
+import com.google.android.gms.common.api.Response
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,11 +21,9 @@ class MapViewModel: ViewModel() {
     var imageFilename = ""
     var data = MutableLiveData<allLocations>()
 
-
-
 //    fun fetchData(){
 //        CoroutineScope(Dispatchers.IO).launch {
-//            val response = LocationsListFragment
+//            val response = Response.mutableListOf(Location("TITLE1", 33.13322, 12.23325, "image"))
 //            withContext(Dispatchers.Main) {
 //                if(response.isSuccessful){
 //                    data.postValue(response.body())
@@ -34,5 +33,4 @@ class MapViewModel: ViewModel() {
 //                }
 //            }
 //        }
-//    }
-}
+    }
