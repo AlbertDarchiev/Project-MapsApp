@@ -39,6 +39,8 @@ class LocationsListFragment : Fragment() {
     private fun getLocations(){
         locationsList = mutableListOf<Location>()
         locationsList.add(Location("TESTNAME", 52.21, 32.25, "2023_03_20_18_18_14"))
+        locationsList.add(Location("ASDSADSDA", 52.434, 32.343434, "2023_03_20_18_18_14"))
+
     }
 
 

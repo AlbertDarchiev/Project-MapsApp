@@ -12,12 +12,15 @@
         <action
             android:id="@+id/action_fragment_map_to_addLocationFragment"
             app:destination="@id/addLocationFragment" />
+        <action
+            android:id="@+id/action_fragment_map_to_locationsListFragment2"
+            app:destination="@id/locationsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/addLocationFragment"
         android:name="com.example.m08_mapsapp.view.AddLocationFragment"
         android:label="fragment_add_location"
-        tools:layout="@layout/fragment_add_location" >
+        tools:layout="@layout/fragment_add_location">
         <action
             android:id="@+id/action_addLocationFragment_to_fragment_map"
             app:destination="@id/fragment_map" />
@@ -29,7 +32,7 @@
         android:id="@+id/loginFragment"
         android:name="com.example.m08_mapsapp.view.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_fragment_map"
             app:destination="@id/fragment_map" />
@@ -41,7 +44,7 @@
         android:id="@+id/registerFragment"
         android:name="com.example.m08_mapsapp.view.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -50,11 +53,16 @@
         android:id="@+id/photoFragment2"
         android:name="com.example.m08_mapsapp.view.PhotoFragment"
         android:label="fragment_photo"
-        tools:layout="@layout/fragment_photo" >
+        tools:layout="@layout/fragment_photo">
         <action
             android:id="@+id/action_photoFragment2_to_addLocationFragment"
             app:destination="@id/addLocationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/locationsListFragment"
+        android:name="com.example.m08_mapsapp.view.LocationsListFragment"
+        android:label="fragment_locations_list"
+        tools:layout="@layout/fragment_locations_list" />
 
 
 </navigation>

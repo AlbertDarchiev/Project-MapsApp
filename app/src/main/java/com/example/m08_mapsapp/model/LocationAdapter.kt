@@ -10,8 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.LocationInfoBinding
 import com.google.firebase.storage.FirebaseStorage
@@ -40,13 +39,10 @@ class LocationAdapter(private val locations: MutableList<Location>): RecyclerVie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentLocation = locations[position]
         with(holder){
-            holder.title = currentLocation.name
-            holder.latitude = currentLocation.latitude.toString()
-            holder.longitude = currentLocation.longitude.toString()
-//            binding.locationImageImageView.setImageResource(R.drawable.eth)
-//            binding.locationNameTextView.text = currentLocation.name
-//            binding.locationLatitudeTextView.text = currentLocation.latitude.toString()
-//            binding.locationLongitudeTextView.text = currentLocation.longitude.toString()
+
+            binding.locationNameTextView.text = currentLocation.name
+            binding.locationLatitudeTextView.text = currentLocation.latitude.toString()
+            binding.locationLongitudeTextView.text = currentLocation.longitude.toString()
 
 //            val storage = FirebaseStorage.getInstance().reference.child("images/${currentLocation.image}")
 //            val localFile = File.createTempFile("temp", "jpeg")

@@ -168,10 +168,10 @@ fun createMap(){
     }
 
     override fun onMapLongClick(coord: LatLng) { // --
-        mapViewModel.locationMap = Location("", coord.latitude, coord.longitude, "")
-
-            val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
-            findNavController().navigate(action)
+        findNavController().navigate(R.id.action_fragment_map_to_locationsListFragment2)
+//        mapViewModel.locationMap = Location("", coord.latitude, coord.longitude, "")
+//            val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
+//            findNavController().navigate(action)
 
     }
     fun updateMarks(){
