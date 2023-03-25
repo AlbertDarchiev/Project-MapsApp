@@ -82,7 +82,6 @@ class PhotoFragment : Fragment() {
     }
 
     private fun takePhoto() {
-
         val imageCapture = imageCapture ?: return
         val photoFile = File(outputDirectory,
             SimpleDateFormat(PhotoFragment.FILENAME_FORMAT, Locale.US
