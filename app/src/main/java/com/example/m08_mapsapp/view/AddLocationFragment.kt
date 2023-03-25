@@ -105,8 +105,6 @@ class AddLocationFragment : Fragment() {
                     )
                 )
 
-
-
                 findNavController().navigate(R.id.action_addLocationFragment_to_fragment_map)
             }
             else Toast.makeText(requireContext(), "COMPLETA ELS CAMPS!", Toast.LENGTH_SHORT).show()

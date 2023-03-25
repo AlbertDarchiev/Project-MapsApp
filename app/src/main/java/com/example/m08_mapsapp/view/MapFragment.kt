@@ -46,8 +46,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 
         println("CREATETEST1: "+mapViewModel.listOfLocations)
-        updateMarks()
-        createMap()
+
         return binding.root
 
 //   return rootViewf
@@ -55,8 +54,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateMarks()
+        createMap()
         binding.addButton.setOnClickListener {
-            mapViewModel.locationMap = Location(null, 0.0, 0.0, "")
+            mapViewModel.locationMap = Location("null", 0.0, 0.0, "")
             findNavController().navigate(R.id.action_fragment_map_to_addLocationFragment)
         }
     }
@@ -69,8 +70,6 @@ fun createMap(){
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         createMarker()
-        println("CREATETEST2: "+mapViewModel.listOfLocations)
-
         enableLocation()
         map.setOnMapLongClickListener(this) //--
     }
@@ -83,12 +82,7 @@ fun createMap(){
        CameraUpdateFactory.newLatLngZoom(coordinates, 18f),
        3000, null)
 }
-    fun createMarker2(){
-        val coordinates = LatLng(41.4534229,2.1841046)
-        val myMarker = MarkerOptions().position(coordinates).title("ITB")
-        map.addMarker(myMarker)
 
-    }
     private fun isLocationPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(requireContext(),
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED

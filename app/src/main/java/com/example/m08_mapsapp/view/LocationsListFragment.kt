@@ -13,31 +13,32 @@ import com.example.m08_mapsapp.model.Location
 import com.example.m08_mapsapp.model.LocationAdapter
 
 class LocationsListFragment : Fragment() {
-    private lateinit var locationAdapter: LocationAdapter
-    private lateinit var linearLayoutManager: RecyclerView.LayoutManager
+    private lateinit var adapter: LocationAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var locationsList: MutableList<Location>
     private lateinit var binding: FragmentLocationsListBinding
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        binding = FragmentLocationsListBinding.inflate(layoutInflater)
         return inflater.inflate(R.layout.fragment_locations_list, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        locationAdapter = LocationAdapter(getLocations())
-        linearLayoutManager = LinearLayoutManager(context)
+        getLocations()
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+        adapter = LocationAdapter(locationsList)
+        recyclerView.adapter = adapter
 
-        binding.recyclerView.apply {
-            setHasFixedSize(true) //Optimitza el rendiment de l’app
-            layoutManager = linearLayoutManager
-            adapter = locationAdapter
-        }
     }
 
-    private fun getLocations(): MutableList<Location>{
-        val locations = mutableListOf<Location>()
-        locations.add(Location("TESTNAME", 52.21, 32.25, "2023_03_20_18_18_14"))
-        return locations
+    private fun getLocations(){
+        locationsList = mutableListOf<Location>()
+        locationsList.add(Location("TESTNAME", 52.21, 32.25, "2023_03_20_18_18_14"))
     }
 
 
