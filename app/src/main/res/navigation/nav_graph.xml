@@ -62,7 +62,11 @@
         android:id="@+id/locationsListFragment"
         android:name="com.example.m08_mapsapp.view.LocationsListFragment"
         android:label="fragment_locations_list"
-        tools:layout="@layout/fragment_locations_list" />
+        tools:layout="@layout/fragment_locations_list" >
+        <action
+            android:id="@+id/action_locationsListFragment_to_fragment_map"
+            app:destination="@id/fragment_map" />
+    </fragment>
 
 
 </navigation>

@@ -9,12 +9,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentMapBinding
@@ -27,14 +30,13 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 const val REQUEST_CODE_LOCATION = 100
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener{
-    companion object{
-        var lat = 0.0
-        var long = 0.0
-    }
+
     private val db = FirebaseFirestore.getInstance()
     lateinit var map: GoogleMap
     lateinit var binding: FragmentMapBinding
@@ -45,8 +47,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
         binding = FragmentMapBinding.inflate(layoutInflater)
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 
-        println("CREATETEST1: "+mapViewModel.listOfLocations)
-
+        //Set current email at Drawer
+        val navigationView = requireActivity().findViewById(R.id.navigationView) as NavigationView
+        val headerView = navigationView.getHeaderView(0)
+        val navUsername = headerView.findViewById<View>(R.id.user_textView) as TextView
+        navUsername.text = FirebaseAuth.getInstance().currentUser?.email.toString()
         return binding.root
 
 //   return rootViewf
@@ -54,7 +59,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateMarks()
         createMap()
         binding.addButton.setOnClickListener {
             mapViewModel.locationMap = Location("null", 0.0, 0.0, "")
@@ -69,19 +73,10 @@ fun createMap(){
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        createMarker()
+        updateMarks()
         enableLocation()
         map.setOnMapLongClickListener(this) //--
     }
-
-    fun createMarker(){
-    val coordinates = LatLng(41.4534227,2.1841046)
-   val myMarker = MarkerOptions().position(coordinates).title("ITB")
-   map.addMarker(myMarker)
-   map.animateCamera(
-       CameraUpdateFactory.newLatLngZoom(coordinates, 18f),
-       3000, null)
-}
 
     private fun isLocationPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(requireContext(),
@@ -145,7 +140,6 @@ fun createMap(){
     }
 
     override fun onResume() {
-        Toast.makeText(requireContext(), mapViewModel.imageFilename, Toast.LENGTH_SHORT).show()
         super.onResume()
         if(!::map.isInitialized) return
         if(!isLocationPermissionGranted()){
@@ -168,25 +162,26 @@ fun createMap(){
     }
 
     override fun onMapLongClick(coord: LatLng) { // --
-        findNavController().navigate(R.id.action_fragment_map_to_locationsListFragment2)
-//        mapViewModel.locationMap = Location("", coord.latitude, coord.longitude, "")
-//            val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
-//            findNavController().navigate(action)
+        mapViewModel.locationMap = Location("", coord.latitude, coord.longitude, "")
+            val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
+            findNavController().navigate(action)
 
     }
     fun updateMarks(){
+        mapViewModel.listOfLocations = mutableListOf<Location>()
         db.collection("users").document(LoginFragment.emailLogged).collection("locations")
             .get()
             .addOnSuccessListener { documents ->
                 var loc : Location
                 for (document in documents) {
-                    loc = Location(document.get("name").toString(), document.get("latitude").toString().toDouble(), document.get("longitude").toString().toDouble(), "")
+                    loc = Location(document.get("name").toString(), document.get("latitude").toString().toDouble(), document.get("longitude").toString().toDouble(), document.get("imageFilename").toString())
                     println("PRINTVALUES: ${loc}")
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
                     val coordinates = LatLng(loc.latitude!!, loc.longitude!!)
                     val myMarker = MarkerOptions().position(coordinates).title(loc.name)
                     map.addMarker(myMarker)
+                    mapViewModel.listOfLocations.add(Location(loc.name, loc.latitude, loc.longitude, loc.image))
                 }
             }
 

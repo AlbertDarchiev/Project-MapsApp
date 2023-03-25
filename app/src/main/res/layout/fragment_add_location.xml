@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FCA311"
+    android:background="@color/blue1"
     tools:context=".view.AddLocationFragment">
 
     <TextView
@@ -99,56 +99,54 @@
         app:layout_constraintTop_toBottomOf="@+id/title_editText" />
 
     <Button
+        android:layout_marginRight="10dp"
         android:id="@+id/takePhoto_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="30dp"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="@color/blue2"
         android:text="TakePhoto"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
+        android:layout_marginLeft="10dp"
         android:id="@+id/selectImage_button"
-
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="70dp"
-        android:layout_marginStart="30dp"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="@color/blue2"
         android:text="Select Image"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
         android:layout_height="70dp"
-        android:backgroundTint="@color/gray"
+        android:layout_marginBottom="20dp"
         android:text="Save Location"
-        android:textColor="@color/dark_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="20dp"/>
+        android:textColor="@color/gray"
+        android:backgroundTint="@color/dark_blue"/>
 
     <ImageView
-        android:padding="10dp"
         android:id="@+id/imageVIew"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:background="@drawable/backround_text_input"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/long_editText"
-        tools:src="@tools:sample/date/hhmm"
-        android:background="@drawable/backround_text_input"/>
+        tools:src="@tools:sample/date/hhmm" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -156,6 +154,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.73" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

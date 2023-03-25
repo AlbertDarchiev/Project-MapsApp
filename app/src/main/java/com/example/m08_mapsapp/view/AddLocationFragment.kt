@@ -4,16 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.media.MediaRouter.UserRouteInfo
 import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract.Data
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -37,7 +35,6 @@ class AddLocationFragment : Fragment() {
     lateinit var binding: FragmentAddLocationBinding
     private lateinit var mapViewModel: MapViewModel
     lateinit var imageUri: Uri
-
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result ->
         if (result.resultCode == RESULT_OK) {
@@ -58,9 +55,7 @@ class AddLocationFragment : Fragment() {
     @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
-        Toast.makeText(requireContext(), mapViewModel.imageFilename, Toast.LENGTH_SHORT).show()
 
         if (mapViewModel.imageFileIsNotNull){
             imageUri = mapViewModel.imageFile
@@ -75,7 +70,6 @@ class AddLocationFragment : Fragment() {
             if (binding.imageVIew.drawable == null) Toast.makeText(requireContext(), "PUJA UNA IMATGE!", Toast.LENGTH_SHORT).show()
             else if (binding.titleEditText.text.toString() != "" && binding.latEditText.text.toString() != "" && binding.latEditText.text.toString() != "") {
 
-                mapViewModel.listOfLocations = mutableListOf()
 
                 //GUARDAR IMAGEN EN FIREBASE STORAGE
                 val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())

@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentLoginBinding
@@ -18,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class LoginFragment : Fragment() {
     lateinit var binding: FragmentLoginBinding
     private val db = FirebaseFirestore.getInstance()
+
     companion object{
         var emailLogged = ""
     }
@@ -26,12 +29,19 @@ class LoginFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
+        val drawerLayout = view?.findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawerLayout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
+        activity?.onBackPressed()
+
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.logButton.isEnabled = true
+
+            binding.logButton.isEnabled = true
 
         binding.logButton.setOnClickListener {
         val email = binding.mailEText.text.toString()
@@ -75,4 +85,5 @@ class LoginFragment : Fragment() {
                 }
         }
 }
+
 }

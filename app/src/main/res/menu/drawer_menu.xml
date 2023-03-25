@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="TITLE" android:icon="@android:drawable/btn_dropdown" />
-    <item android:title="mapFragment" android:id="@+id/fragment_map"/>
-    <item android:title="addCoord" android:id="@+id/addLocationFragment"/>
-    <item android:title="Saved Locations" android:id="@+id/locationsListFragment"/>
+    <item android:title="mapFragment" android:id="@+id/fragment_map" android:icon="@drawable/mapa_nocolor"/>
+    <item android:title="addCoord" android:id="@+id/addLocationFragment" android:icon="@drawable/add_location_nocolor"/>
+    <item android:title="Saved Locations" android:id="@+id/locationsListFragment" android:icon="@drawable/multiple_locations_nocolor"/>
 </menu>

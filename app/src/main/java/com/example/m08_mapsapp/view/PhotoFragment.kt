@@ -95,6 +95,7 @@ class PhotoFragment : Fragment() {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo capture succeeded: $savedUri"
+                    //save image on ViewModel
                     mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
                     mapViewModel.imageFile = savedUri
                     mapViewModel.imageFileIsNotNull = true
