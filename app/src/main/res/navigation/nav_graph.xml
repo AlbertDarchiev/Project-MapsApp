@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_addLocationFragment_to_photoFragment2"
             app:destination="@id/photoFragment2" />
+        <action
+            android:id="@+id/action_addLocationFragment_to_fragment_map2"
+            app:destination="@id/fragment_map" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -67,6 +70,11 @@
             android:id="@+id/action_locationsListFragment_to_fragment_map"
             app:destination="@id/fragment_map" />
     </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.m08_mapsapp.view.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" />
 
 
 </navigation>

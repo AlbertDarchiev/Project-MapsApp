@@ -1,5 +1,6 @@
 package com.example.m08_mapsapp.view
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import androidx.core.view.*
 import android.content.pm.PackageManager
@@ -23,6 +24,8 @@ import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentMapBinding
 import com.example.m08_mapsapp.model.Location
 import com.example.m08_mapsapp.viewmodel.MapViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -41,6 +44,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
     lateinit var map: GoogleMap
     lateinit var binding: FragmentMapBinding
     private lateinit var mapViewModel: MapViewModel
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var currentCoordinates: LatLng
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -52,6 +57,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
         val headerView = navigationView.getHeaderView(0)
         val navUsername = headerView.findViewById<View>(R.id.user_textView) as TextView
         navUsername.text = FirebaseAuth.getInstance().currentUser?.email.toString()
+
+        fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(requireActivity())
+
         return binding.root
 
 //   return rootViewf
@@ -73,6 +81,8 @@ fun createMap(){
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        getLocation()
+
         updateMarks()
         enableLocation()
         map.setOnMapLongClickListener(this) //--
@@ -163,8 +173,7 @@ fun createMap(){
 
     override fun onMapLongClick(coord: LatLng) { // --
         mapViewModel.locationMap = Location("", coord.latitude, coord.longitude, "")
-            val action = MapFragmentDirections.actionFragmentMapToAddLocationFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(R.id.action_fragment_map_to_addLocationFragment)
 
     }
     fun updateMarks(){
@@ -184,18 +193,24 @@ fun createMap(){
                     mapViewModel.listOfLocations.add(Location(loc.name, loc.latitude, loc.longitude, loc.image))
                 }
             }
-
-//        for (location in mapViewModel.listOfLocations) {
-//            println("RERER: "+location)
-//            val coordinates = LatLng(location.latitude, location.longitude)
-//            val myMarker = MarkerOptions().position(coordinates).title(location.name)
-//            map.addMarker(myMarker)
-////            map.animateCamera(
-////                CameraUpdateFactory.newLatLngZoom(coordinates, 18f),
-////                5000, null
-////            )
-//        }
     }
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {
+        if (isLocationPermissionGranted()) {
+            fusedLocationProviderClient.lastLocation.addOnCompleteListener {
+                val location = it.result
+                if (location != null) {
+                    currentCoordinates = LatLng(location.latitude, location.longitude)
+                    map.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(currentCoordinates, 18f),
+                        5000, null)
+                }
+            }
+        } else {
+            requestLocationPermission()
+        }
+    }
+
 
 
 }

@@ -1,27 +1,26 @@
 package com.example.m08_mapsapp.view
 
-import android.content.ContentValues
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.provider.Settings.Global.putString
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentLoginBinding
 import com.example.m08_mapsapp.viewmodel.MapViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginFragment : Fragment() {
     lateinit var binding: FragmentLoginBinding
@@ -33,9 +32,13 @@ class LoginFragment : Fragment() {
     }
 
 
+    @SuppressLint("ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(layoutInflater)
-        // Inflate the layout for this fragment
+        val imageView = binding.worldImage
+        val animation: Animation = AnimationUtils.loadAnimation(context, R.drawable.rotate_animation)
+        imageView.startAnimation(animation)
+
         val drawerLayout = view?.findViewById<DrawerLayout>(R.id.drawer_layout)
         drawerLayout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         activity?.onBackPressed()
@@ -51,27 +54,32 @@ class LoginFragment : Fragment() {
         binding.logButton.isEnabled = true
         checkLoggedUser()
         binding.logButton.setOnClickListener {
-
         val email = binding.mailEText.text.toString()
         val password = binding.passEText.text.toString()
-
-            FirebaseAuth.getInstance().
-            signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                binding.logButton.isEnabled = false
-                if(it.isSuccessful){
-                    rememberUser(email, password, binding.rememberSwitch.isChecked)
-                    emailLogged = it.result?.user?.email.toString()
-                    Toast.makeText(activity, "WELCOME", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_loginFragment_to_fragment_map)
-                }
+        binding.logButton.isEnabled = false
+            if (email != "" && password != "") {
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            rememberUser(email, password, binding.rememberSwitch.isChecked)
+                            emailLogged = it.result?.user?.email.toString()
+                            Toast.makeText(activity, "WELCOME", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_loginFragment_to_fragment_map)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        binding.logButton.isEnabled = true
+                        Toast.makeText(activity, "Error al iniciar sessió", Toast.LENGTH_SHORT)
+                            .show()
+                        Log.w(TAG, "Error login", e)
+                    }
             }
-            .addOnFailureListener { e ->
+            else {
                 binding.logButton.isEnabled = true
-                Toast.makeText(activity, "Error al iniciar sessió", Toast.LENGTH_SHORT).show()
-                Log.w(TAG, "Error login", e)
+                Toast.makeText(activity, "Completa tots els camps", Toast.LENGTH_SHORT).show()
             }
-    }
+
+        }
         binding.regButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
@@ -87,7 +95,7 @@ class LoginFragment : Fragment() {
 
     private fun setupForm() {
         val email = myPreferences.getString("email", "")
-        val pass = myPreferences.getString("pass", "")
+        val pass = myPreferences.getString("password", "")
         val remember = myPreferences.getBoolean("remember", false)
         if (email != null) {
             if(email.isNotEmpty()){
@@ -117,9 +125,7 @@ class LoginFragment : Fragment() {
                 apply()
             }
         }
-
-
-
-
     }
+
+
 }
