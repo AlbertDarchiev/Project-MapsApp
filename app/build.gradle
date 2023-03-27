@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
     //FIREBASE STORAGE
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.google.firebase:firebase-storage-ktx'

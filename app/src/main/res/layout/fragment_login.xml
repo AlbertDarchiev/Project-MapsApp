@@ -4,95 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue1"
     tools:context=".view.LoginFragment"
-    android:background="@color/blue1">
+    tools:ignore="UseSwitchCompatOrMaterialXml">
 
 
     <TextView
-        android:textColor="@color/dark_blue"
         android:id="@+id/title"
-        android:gravity="center"
-        android:background="@color/gray"
-        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@color/gray"
+        android:gravity="center"
+        android:padding="5dp"
         android:text="LOGIN"
+        android:textColor="@color/dark_blue"
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:padding="5dp"
-        android:gravity="center"
-        android:background="@drawable/backround_text_input"
-        android:textColor="@color/dark_blue"
         android:id="@+id/mail_eText"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:background="@drawable/backround_text_input"
+        android:gravity="center"
         android:hint="EMAIL"
+        android:padding="5dp"
+        android:textColor="@color/dark_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <EditText
-        android:padding="5dp"
-        android:textColor="@color/dark_blue"
-        android:gravity="center"
-        android:background="@drawable/backround_text_input"
+        android:layout_marginTop="15dp"
         android:id="@+id/pass_eText"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/backround_text_input"
+        android:gravity="center"
         android:hint="PASSWORD"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        android:inputType="textPassword"
+        android:padding="5dp"
+        android:textColor="@color/dark_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mail_eText"
-        android:inputType="textPassword"/>
+        app:layout_constraintTop_toBottomOf="@+id/mail_eText" />
 
     <Button
-        android:textColor="@color/gray"
-        android:backgroundTint="@color/dark_blue"
-
-        android:layout_marginTop="20dp"
         android:id="@+id/log_button"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
+
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/dark_blue"
         android:text="LOGIN"
+        android:textColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <Button
-        android:textColor="@color/gray"
         android:id="@+id/reg_button"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/dark_blue"
         android:text="REGISTER"
+        android:textColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/log_button" />
 
-
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_button" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.29" />
+        app:layout_constraintGuide_percent="0.3" />
+
+    <Switch
+        android:id="@+id/remember_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember me"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:scaleType="fitStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@drawable/wordimage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

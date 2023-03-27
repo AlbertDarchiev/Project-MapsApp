@@ -9,6 +9,7 @@ class MapViewModel: ViewModel() {
     lateinit var imageFile : Uri
     var imageFileIsNotNull = false
     var imageFilename = ""
+    var logout = false
 
 
 
