@@ -17,19 +17,34 @@ import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 
 class LocationAdapter(private val locations: MutableList<Location>): RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class ViewHolder(view: View, listener: onItemClickListener): RecyclerView.ViewHolder(view){
         val binding = LocationInfoBinding.bind(view)
         var title: String = binding.locationNameTextView.text as String
         var latitude: String = binding.locationLatitudeTextView.text as String
         var longitude: String = binding.locationLongitudeTextView.text as String
 
+        init {
+            view.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
     }
+
+    private lateinit var locListener: onItemClickListener
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener){
+        locListener = listener
+    }
+
 
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.location_info, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, locListener)
     }
 
     override fun getItemCount(): Int {

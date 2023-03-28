@@ -1,12 +1,16 @@
 package com.example.m08_mapsapp.view
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.graphics.component1
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +32,6 @@ class LocationsListFragment : Fragment() {
     private lateinit var mapViewModel: MapViewModel
 
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentLocationsListBinding.inflate(layoutInflater)
@@ -45,24 +48,33 @@ class LocationsListFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         adapter = LocationAdapter(locationsList)
         recyclerView.adapter = adapter
+
+        adapter.setOnItemClickListener(object : LocationAdapter.onItemClickListener{
+            var idToDelete =""
+            var imageName = ""
+            override fun onItemClick(position: Int) {
+                imageName = mapViewModel.listOfLocations[position].image.toString()
+                Toast.makeText(context, "Location deleted", Toast.LENGTH_SHORT).show()
+
+                db.collection("users").document(LoginFragment.emailLogged).collection("locations")
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            if (imageName == document.get("imageFilename")) {
+                                idToDelete = document.id
+                                db.collection("users").document(LoginFragment.emailLogged).collection("locations").document(idToDelete)
+                                    .delete()
+                                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                                    .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                                break
+                            }
+                        }
+                    }
+
+            }
+        })
     }
 
-//    private fun getLocations(){
-//        locationsList = mutableListOf<Location>()
-//
-//        db.collection("users").document(LoginFragment.emailLogged).collection("locations")
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                var loc : Location
-//                for (document in documents) {
-//                    loc = Location(document.get("name").toString(), document.get("latitude").toString().toDouble(), document.get("longitude").toString().toDouble(), document.get("imageFilename").toString())
-//                    println("PRINTVALUES: ${loc}")
-//                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-//                    locationsList.add(Location(loc.name, loc.latitude, loc.longitude, loc.image))
-//
-//                }
-//            }
-//    }
 
 
 }

@@ -41,13 +41,11 @@ class RegisterFragment : Fragment() {
                             LoginFragment.emailLogged = it.result?.user?.email.toString()
                             Toast.makeText(activity, "Usuari creat correctament", Toast.LENGTH_SHORT).show()
                             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                        } else {
-                            Toast.makeText(
-                                activity,
-                                "Error al registrar l'usuari",
-                                Toast.LENGTH_SHORT
-                            ).show()
                         }
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(activity, "Error ${e.message}", Toast.LENGTH_SHORT).show()
+                        Log.w(TAG, "Error login", e)
                     }
             }
             else Toast.makeText(activity, "Les contrasenyes no son iguals", Toast.LENGTH_SHORT).show()

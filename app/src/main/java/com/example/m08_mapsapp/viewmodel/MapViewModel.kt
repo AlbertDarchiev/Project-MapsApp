@@ -10,4 +10,5 @@ class MapViewModel: ViewModel() {
     var imageFileIsNotNull = false
     var imageFilename = ""
     var logout = false
+    var locationName = ""
 }

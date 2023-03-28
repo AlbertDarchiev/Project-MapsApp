@@ -73,8 +73,7 @@ class LoginFragment : Fragment() {
                     }
                     .addOnFailureListener { e ->
                         binding.logButton.isEnabled = true
-                        Toast.makeText(activity, "Error al iniciar sessió", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(activity, "Error ${e.message}", Toast.LENGTH_SHORT).show()
                         Log.w(TAG, "Error login", e)
                     }
             }

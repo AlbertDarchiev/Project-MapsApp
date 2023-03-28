@@ -51,6 +51,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentMapBinding.inflate(layoutInflater)
+        mapViewModel.locationName = ""
         (activity as AppCompatActivity).supportActionBar?.show()
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 

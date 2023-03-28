@@ -65,12 +65,12 @@ class AddLocationFragment : Fragment() {
 
         binding.latEditText.setText(mapViewModel.locationMap.latitude.toString())
         binding.longEditText.setText(mapViewModel.locationMap.longitude.toString())
+        binding.titleEditText.setText(mapViewModel.locationName)
 
         binding.button.setOnClickListener {
             if (binding.imageVIew.drawable == null) Toast.makeText(requireContext(), "PUJA UNA IMATGE!", Toast.LENGTH_SHORT).show()
             else if (binding.titleEditText.text.toString() != "" && binding.latEditText.text.toString() != "" && binding.latEditText.text.toString() != "") {
-
-
+                mapViewModel.locationName = ""
                 //GUARDAR IMAGEN EN FIREBASE STORAGE
                 val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
                 val now = Date()
@@ -105,7 +105,8 @@ class AddLocationFragment : Fragment() {
 
         }
         binding.takePhotoButton.setOnClickListener {
-            findNavController().navigate(R.id.action_addLocationFragment_to_photoFragment2)
+            mapViewModel.locationName = binding.titleEditText.text.toString()
+                findNavController().navigate(R.id.action_addLocationFragment_to_photoFragment2)
         }
 
         binding.selectImageButton.setOnClickListener {
