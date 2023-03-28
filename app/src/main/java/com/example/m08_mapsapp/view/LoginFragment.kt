@@ -1,6 +1,7 @@
 package com.example.m08_mapsapp.view
 
 import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
@@ -12,6 +13,8 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.SupportActionModeWrapper
 import androidx.core.content.edit
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -38,12 +41,13 @@ class LoginFragment : Fragment() {
         val imageView = binding.worldImage
         val animation: Animation = AnimationUtils.loadAnimation(context, R.drawable.rotate_animation)
         imageView.startAnimation(animation)
-
-        val drawerLayout = view?.findViewById<DrawerLayout>(R.id.drawer_layout)
-        drawerLayout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        (activity as AppCompatActivity).supportActionBar?.hide()
+        //Disable go back
         activity?.onBackPressed()
+
         myPreferences = requireActivity().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
         setupForm()
+
         return binding.root
     }
 

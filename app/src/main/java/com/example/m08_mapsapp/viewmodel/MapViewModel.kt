@@ -10,20 +10,4 @@ class MapViewModel: ViewModel() {
     var imageFileIsNotNull = false
     var imageFilename = ""
     var logout = false
-
-
-
-//    fun fetchData(){
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val response = LocationsListFragment
-//            withContext(Dispatchers.Main) {
-//                if(response.isSuccessful){
-//                    data.postValue(response.body())
-//                }
-//                else{
-//                    Log.e("Error :", response.message())
-//                }
-//            }
-//        }
-//    }
 }

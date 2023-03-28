@@ -13,7 +13,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:background="@color/gray"
         android:gravity="center"
         android:padding="5dp"
@@ -70,9 +70,9 @@
         android:id="@+id/reg_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_blue"
+        android:backgroundTint="@color/blue4"
         android:text="REGISTER"
-        android:textColor="@color/gray"
+        android:textColor="@color/dark_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/log_button" />
@@ -96,8 +96,8 @@
 
     <ImageView
         android:id="@+id/world_image"
-        android:layout_width="600dp"
-        android:layout_height="600dp"
+        android:layout_width="750dp"
+        android:layout_height="750dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/wordimage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.54" />
+        app:layout_constraintGuide_percent="0.51" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

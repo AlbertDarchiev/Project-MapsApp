@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 
@@ -18,6 +19,7 @@ class SplashFragment : Fragment() {
         Handler(Looper.myLooper()!!).postDelayed({
 findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
         },3100)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         return view
     }
 

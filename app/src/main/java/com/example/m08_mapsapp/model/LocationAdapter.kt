@@ -49,7 +49,6 @@ class LocationAdapter(private val locations: MutableList<Location>): RecyclerVie
             storage.getFile(localFile).addOnSuccessListener {
                 val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                 binding.locationImageImageView.setImageBitmap(bitmap)
-
             }.addOnFailureListener{
                 println("ERROR IMAGE")
 //                Toast.makeText(requireContext(), "Error downloading image!", Toast.LENGTH_SHORT).show()

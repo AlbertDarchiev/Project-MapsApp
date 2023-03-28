@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentRegisterBinding
@@ -17,12 +18,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFragment : Fragment() {
     lateinit var binding: FragmentRegisterBinding
-    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(layoutInflater)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         return binding.root
     }
 
@@ -53,6 +54,9 @@ class RegisterFragment : Fragment() {
 
         }
 
+        binding.backButton.setOnClickListener{
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
     }
 
 }
