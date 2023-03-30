@@ -42,6 +42,7 @@ class PhotoFragment : Fragment() {
     private lateinit var cameraExecutor: ExecutorService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
         // Inflate the layout for this fragment
         binding = FragmentPhotoBinding.inflate(layoutInflater)
         if (allPermissionsGranted()) {
@@ -96,12 +97,11 @@ class PhotoFragment : Fragment() {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo capture succeeded: $savedUri"
                     //save image on ViewModel
-                    mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
                     mapViewModel.imageFile = savedUri
                     mapViewModel.imageFileIsNotNull = true
-                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
-                    findNavController().navigate(R.id.action_photoFragment2_to_addLocationFragment)
+                    if (mapViewModel.editLocation) findNavController().navigate(R.id.action_photoFragment2_to_locationDetailsFragment)
+                    else findNavController().navigate(R.id.action_photoFragment2_to_addLocationFragment)
                 }
             })
     }

@@ -15,11 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentMapBinding
@@ -31,7 +27,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.navigation.NavigationView
@@ -51,9 +46,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentMapBinding.inflate(layoutInflater)
-        mapViewModel.locationName = ""
-        (activity as AppCompatActivity).supportActionBar?.show()
+
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
+        mapViewModel.locationName = ""
+        mapViewModel.locationMap = Location("", "", "", "")
+        (activity as AppCompatActivity).supportActionBar?.show()
 
         //Set current email at Drawer
         val navigationView = requireActivity().findViewById(R.id.navigationView) as NavigationView
@@ -72,8 +69,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
         super.onViewCreated(view, savedInstanceState)
         createMap()
         binding.addButton.setOnClickListener {
-            mapViewModel.locationMap = Location("null", 0.0, 0.0, "")
-            findNavController().navigate(R.id.action_fragment_map_to_addLocationFragment)
+            findNavController().navigate(R.id.action_fragment_map_to_locationsListFragment)
         }
     }
 
@@ -174,23 +170,23 @@ fun createMap(){
         }
     }
 
-    override fun onMapLongClick(coord: LatLng) { // --
-        mapViewModel.locationMap = Location("", coord.latitude, coord.longitude, "")
+    override fun onMapLongClick(coord: LatLng) {
+        mapViewModel.locationMap = Location("", coord.latitude.toString(), coord.longitude.toString(), "")
             findNavController().navigate(R.id.action_fragment_map_to_addLocationFragment)
 
     }
     fun updateMarks(){
-        mapViewModel.listOfLocations = mutableListOf<Location>()
+        mapViewModel.listOfLocations = mutableListOf()
         db.collection("users").document(LoginFragment.emailLogged).collection("locations")
             .get()
             .addOnSuccessListener { documents ->
                 var loc : Location
                 for (document in documents) {
-                    loc = Location(document.get("name").toString(), document.get("latitude").toString().toDouble(), document.get("longitude").toString().toDouble(), document.get("imageFilename").toString())
+                    loc = Location(document.get("name").toString(), document.get("latitude").toString(), document.get("longitude").toString(), document.get("imageFilename").toString())
                     println("PRINTVALUES: ${loc}")
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
-                    val coordinates = LatLng(loc.latitude!!, loc.longitude!!)
+                    val coordinates = LatLng(loc.latitude!!.toDouble(), loc.longitude!!.toDouble())
                     val myMarker = MarkerOptions().position(coordinates).title(loc.name)
                     map.addMarker(myMarker)
                     mapViewModel.listOfLocations.add(Location(loc.name, loc.latitude, loc.longitude, loc.image))

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.graphics.component1
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.m08_mapsapp.R
@@ -41,31 +42,26 @@ class LocationsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 
-        locationsList = mapViewModel.listOfLocations
+//        locationsList = mapViewModel.listOfLocations
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        adapter = LocationAdapter(locationsList)
+        adapter = LocationAdapter(mapViewModel.listOfLocations)
         recyclerView.adapter = adapter
 
         adapter.setOnItemClickListener(object : LocationAdapter.onItemClickListener{
-            var idToDelete =""
             var imageName = ""
             override fun onItemClick(position: Int) {
                 imageName = mapViewModel.listOfLocations[position].image.toString()
-                Toast.makeText(context, "Location deleted", Toast.LENGTH_SHORT).show()
 
                 db.collection("users").document(LoginFragment.emailLogged).collection("locations")
                     .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
                             if (imageName == document.get("imageFilename")) {
-                                idToDelete = document.id
-                                db.collection("users").document(LoginFragment.emailLogged).collection("locations").document(idToDelete)
-                                    .delete()
-                                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
-                                    .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                                mapViewModel.idToEdit = document.id
+                                findNavController().navigate(R.id.locationDetailsFragment)
                                 break
                             }
                         }

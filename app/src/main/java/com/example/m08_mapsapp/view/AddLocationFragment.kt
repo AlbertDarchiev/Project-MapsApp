@@ -56,6 +56,7 @@ class AddLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
+        mapViewModel.editLocation = true
 
         if (mapViewModel.imageFileIsNotNull){
             imageUri = mapViewModel.imageFile
@@ -80,12 +81,7 @@ class AddLocationFragment : Fragment() {
                 storage.putFile(imageUri)
                     .addOnSuccessListener {
                         binding.imageVIew.setImageURI(null)
-                        Toast.makeText(requireContext(), "Image uploaded!", Toast.LENGTH_SHORT).show()
-
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(requireContext(), "Image not uploaded!", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(context, "Image uploaded!", Toast.LENGTH_SHORT).show()
                     }
 
                 //GUARDAR EN FIREBASE DATABASE
@@ -101,7 +97,7 @@ class AddLocationFragment : Fragment() {
 
                 findNavController().navigate(R.id.action_addLocationFragment_to_fragment_map)
             }
-            else Toast.makeText(requireContext(), "COMPLETA ELS CAMPS!", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(context, "COMPLETA ELS CAMPS!", Toast.LENGTH_SHORT).show()
 
         }
         binding.takePhotoButton.setOnClickListener {

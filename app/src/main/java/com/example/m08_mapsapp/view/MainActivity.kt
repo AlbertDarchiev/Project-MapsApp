@@ -35,7 +35,7 @@ class MainActivity: AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(setOf(R.id.fragment_map, R.id.addLocationFragment, R.id.locationsListFragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        val navigationView = findViewById(com.example.m08_mapsapp.R.id.navigationView) as NavigationView
+        val navigationView = findViewById<NavigationView>(com.example.m08_mapsapp.R.id.navigationView)
         val logoutTextView = navigationView.findViewById<TextView>(R.id.logout)
 
         logoutTextView.setOnClickListener {

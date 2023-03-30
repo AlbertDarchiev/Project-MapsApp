@@ -13,7 +13,7 @@
             android:id="@+id/action_fragment_map_to_addLocationFragment"
             app:destination="@id/addLocationFragment" />
         <action
-            android:id="@+id/action_fragment_map_to_locationsListFragment2"
+            android:id="@+id/action_fragment_map_to_locationsListFragment"
             app:destination="@id/locationsListFragment" />
     </fragment>
     <fragment
@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_addLocationFragment_to_fragment_map2"
             app:destination="@id/fragment_map" />
+        <action
+            android:id="@+id/action_addLocationFragment_to_locationsListFragment"
+            app:destination="@id/locationsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -60,6 +63,10 @@
         <action
             android:id="@+id/action_photoFragment2_to_addLocationFragment"
             app:destination="@id/addLocationFragment" />
+        <action
+            android:id="@+id/action_photoFragment2_to_locationDetailsFragment"
+            app:destination="@id/locationDetailsFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/locationsListFragment"
@@ -68,6 +75,12 @@
         tools:layout="@layout/fragment_locations_list" >
         <action
             android:id="@+id/action_locationsListFragment_to_fragment_map"
+            app:destination="@id/fragment_map" />
+        <action
+            android:id="@+id/action_locationsListFragment_to_locationDetailsFragment"
+            app:destination="@id/locationDetailsFragment" />
+        <action
+            android:id="@+id/action_locationsListFragment_to_fragment_map2"
             app:destination="@id/fragment_map" />
     </fragment>
     <fragment
@@ -78,6 +91,18 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationDetailsFragment"
+        android:name="com.example.m08_mapsapp.view.LocationDetailsFragment"
+        android:label="fragment_location_details"
+        tools:layout="@layout/fragment_location_details" >
+        <action
+            android:id="@+id/action_locationDetailsFragment_to_fragment_map2"
+            app:destination="@id/fragment_map" />
+        <action
+            android:id="@+id/action_locationDetailsFragment_to_photoFragment2"
+            app:destination="@id/photoFragment2" />
     </fragment>
 
 
