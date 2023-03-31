@@ -50,6 +50,10 @@ class LocationsListFragment : Fragment() {
         adapter = LocationAdapter(mapViewModel.listOfLocations)
         recyclerView.adapter = adapter
 
+        binding.addLocationButton.setOnClickListener {
+            findNavController().navigate(MapFragmentDirections.actionFragmentMapToAddLocationFragment())
+        }
+
         adapter.setOnItemClickListener(object : LocationAdapter.onItemClickListener{
             var imageName = ""
             override fun onItemClick(position: Int) {

@@ -38,14 +38,33 @@ class MainActivity: AppCompatActivity() {
         val navigationView = findViewById<NavigationView>(com.example.m08_mapsapp.R.id.navigationView)
         val logoutTextView = navigationView.findViewById<TextView>(R.id.logout)
 
+
         logoutTextView.setOnClickListener {
             drawerLayout.close()
             navController.navigate(R.id.loginFragment)
         }
 
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.fragment_map -> {
+                    navController.navigate(R.id.fragment_map)
+                    true
+                }
+                R.id.addLocationFragment -> {
+                    navController.navigate(R.id.addLocationFragment)
+
+                    true
+                }
+                R.id.locationsListFragment -> {
+                    navController.navigate(R.id.locationsListFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+
     }
     override fun onBackPressed() {
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

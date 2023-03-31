@@ -1,5 +1,6 @@
 package com.example.m08_mapsapp.view
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
@@ -9,14 +10,17 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.m08_mapsapp.R
 import com.example.m08_mapsapp.databinding.FragmentLocationDetailsBinding
@@ -33,6 +37,8 @@ class LocationDetailsFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
     lateinit var mapViewModel: MapViewModel
     lateinit var imageUri: Uri
+    var newImage = false
+
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -50,15 +56,13 @@ class LocationDetailsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("RtlHardcoded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
 
-        if (mapViewModel.imageFileIsNotNull){
-            imageUri = mapViewModel.imageFile
-            binding.imageVIew.setImageURI(imageUri)
-            mapViewModel.imageFileIsNotNull = false
-        }
+
+
 
         mapViewModel.editLocation = true
         db.collection("users").document(LoginFragment.emailLogged).collection("locations").document(mapViewModel.idToEdit)
@@ -77,6 +81,11 @@ class LocationDetailsFragment : Fragment() {
                     binding.imageVIew.setImageBitmap(bitmap)
                     val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, bitmap, "Title", null)
                     imageUri = Uri.parse(path)
+                    if (mapViewModel.imageFileIsNotNull){
+                        imageUri = mapViewModel.imageFile
+                        binding.imageVIew.setImageURI(imageUri)
+                        mapViewModel.imageFileIsNotNull = false
+                    }
 
             }}
 

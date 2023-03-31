@@ -10,11 +10,11 @@
         android:label="fragment_map"
         tools:layout="@layout/fragment_map">
         <action
-            android:id="@+id/action_fragment_map_to_addLocationFragment"
-            app:destination="@id/addLocationFragment" />
-        <action
             android:id="@+id/action_fragment_map_to_locationsListFragment"
             app:destination="@id/locationsListFragment" />
+        <action
+            android:id="@+id/action_fragment_map_to_addLocationFragment"
+            app:destination="@id/addLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/addLocationFragment"
@@ -27,9 +27,6 @@
         <action
             android:id="@+id/action_addLocationFragment_to_photoFragment2"
             app:destination="@id/photoFragment2" />
-        <action
-            android:id="@+id/action_addLocationFragment_to_fragment_map2"
-            app:destination="@id/fragment_map" />
         <action
             android:id="@+id/action_addLocationFragment_to_locationsListFragment"
             app:destination="@id/locationsListFragment" />
@@ -72,17 +69,8 @@
         android:id="@+id/locationsListFragment"
         android:name="com.example.m08_mapsapp.view.LocationsListFragment"
         android:label="fragment_locations_list"
-        tools:layout="@layout/fragment_locations_list" >
-        <action
-            android:id="@+id/action_locationsListFragment_to_fragment_map"
-            app:destination="@id/fragment_map" />
-        <action
-            android:id="@+id/action_locationsListFragment_to_locationDetailsFragment"
-            app:destination="@id/locationDetailsFragment" />
-        <action
-            android:id="@+id/action_locationsListFragment_to_fragment_map2"
-            app:destination="@id/fragment_map" />
-    </fragment>
+        tools:layout="@layout/fragment_locations_list"/>
+
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.m08_mapsapp.view.SplashFragment"
@@ -104,6 +92,4 @@
             android:id="@+id/action_locationDetailsFragment_to_photoFragment2"
             app:destination="@id/photoFragment2" />
     </fragment>
-
-
 </navigation>

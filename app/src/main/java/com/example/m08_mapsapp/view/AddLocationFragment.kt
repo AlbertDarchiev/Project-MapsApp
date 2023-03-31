@@ -56,7 +56,7 @@ class AddLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapViewModel = ViewModelProvider(requireActivity()).get(MapViewModel::class.java)
-        mapViewModel.editLocation = true
+        mapViewModel.editLocation = false
 
         if (mapViewModel.imageFileIsNotNull){
             imageUri = mapViewModel.imageFile

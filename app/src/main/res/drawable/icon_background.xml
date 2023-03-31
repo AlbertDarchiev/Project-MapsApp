@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape
-            android:tint="@color/blue4"
-            android:shape="ring"
-            >
-            <corners
-                android:radius="250dp"/>
-            <stroke
-                android:width="20dp"
-                android:color="@color/purple_200" />
-        </shape>
-    </item>
-    <item>
-        <shape
-            android:tint="@color/blue1"
-            android:shape="rectangle">
-            <corners
-                android:radius="250dp"/>
-            <stroke
-                android:width="20dp"
-                android:color="@color/purple_200" />
-        </shape>
-    </item>
-</layer-list>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/blue2" />
+    <stroke
+        android:width="5dp"
+        android:color="@color/black" />
+</shape>
