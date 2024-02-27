@@ -17,14 +17,14 @@
         android:id="@+id/addLocation_button"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/icon_background"
+        android:background="@drawable/shape_btn_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
     <ImageView
         android:id="@+id/addLocation_image"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:src="@drawable/add_location_nocolor"
+        android:src="@drawable/img_add_location_nocolor"
         app:layout_constraintBottom_toBottomOf="@+id/addLocation_button"
         app:layout_constraintEnd_toEndOf="@+id/addLocation_button"
         app:layout_constraintStart_toStartOf="@+id/addLocation_button"

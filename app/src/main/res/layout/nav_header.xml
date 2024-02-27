@@ -27,7 +27,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:elevation="5dp"
-        android:src="@drawable/map_logo"
+        android:src="@drawable/img_map_logo"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />

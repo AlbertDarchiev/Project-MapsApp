@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'com.example.m08_mapsapp'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.m08_mapsapp" //SHA1 -> ./gradlew signingreport
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -39,6 +39,9 @@ android {
 }
 
 dependencies {
+    //GOOGLE MATERIAL
+    implementation 'com.google.android.material:material:1.9.0'
+
     //LOTTIE (ANIMATIONS)
     implementation 'com.airbnb.android:lottie:3.4.0'
 
