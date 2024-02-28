@@ -64,6 +64,8 @@ class MainActivity: AppCompatActivity() {
         }
 
     }
+
+    // Deshabilitar la funcion de "ir a pagina anterior"
     override fun onBackPressed() {
     }
 

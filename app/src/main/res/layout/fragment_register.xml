@@ -4,97 +4,169 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue1"
     tools:context=".view.RegisterFragment">
 
-    <TextView
-        android:textColor="@color/dark_blue"
-
-        android:id="@+id/title"
-        android:gravity="center"
-        android:background="@color/gray"
-        android:padding="5dp"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="REGISTER"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:src="@drawable/img_map2"
+        android:scaleType="center"/>
 
-    <EditText
-        android:textColor="@color/dark_blue"
-        android:padding="5dp"
-        android:gravity="center"
-        android:background="@drawable/shape_edittext"
-        android:id="@+id/mail_eText"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="25dp"
-        android:hint="EMAIL"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <EditText
-        android:id="@+id/pass_eText"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:background="@drawable/shape_edittext"
-        android:gravity="center"
-        android:hint="PASSWORD"
-        android:inputType="textPassword"
-        android:padding="5dp"
-        android:textColor="@color/dark_blue"
-        app:layout_constraintBottom_toTopOf="@+id/pass2_eText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mail_eText"
-/>
-
-    <EditText
-        android:id="@+id/pass2_eText"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:background="@drawable/shape_edittext"
-        android:gravity="center"
-        android:hint="PASSWORD"
-        android:inputType="textPassword"
-        android:padding="5dp"
-        android:textColor="@color/dark_blue"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mail_eText" />
-
-    <Button
-        android:id="@+id/reg_button"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_blue"
-        android:text="CREATE ACCOUNT"
-        android:textColor="@color/gray"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue4"
-        android:text="LOGIN"
-        android:textColor="@color/dark_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.46" />
+        android:layout_marginBottom="-5dp"
+        android:fontFamily="@font/nunito_sans_black"
+        android:text="Create account"
+        android:textColor="@color/dark_blue"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/subtitle"
+        app:layout_constraintStart_toStartOf="@+id/subtitle" />
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_sans"
+        android:paddingBottom="5dp"
+        android:text="Register a new account"
+        android:textColor="@color/dark_blue"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraint_log"
+        app:layout_constraintStart_toStartOf="@+id/constraint_log"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_log"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_margin="25dp"
+        android:background="@drawable/shape_background_item"
+        android:padding="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_mail"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:boxBackgroundMode="none"
+            android:textColorHint="@color/dark_blue2"
+            app:placeholderText="Enter your Email"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mail_eText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/shape_edittext"
+                android:padding="5dp"
+                android:paddingStart="15dp"
+                android:hint="Email"
+                android:textColor="@color/dark_blue"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_pass"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_mail"
+            app:boxBackgroundMode="none"
+            android:textColorHint="@color/dark_blue2"
+            app:placeholderText="Enter your password"
+            android:layout_marginTop="10dp"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pass_eText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/shape_edittext"
+                android:padding="5dp"
+                android:paddingStart="15dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColor="@color/dark_blue"
+                android:focusableInTouchMode="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_pass2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColorHint="@color/dark_blue2"
+            app:boxBackgroundMode="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_pass"
+            app:placeholderText="Repeat your password"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pass2_eText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/shape_edittext"
+                android:focusableInTouchMode="true"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/dark_blue" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/reg_button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="@color/dark_blue"
+            android:text="REGISTER"
+            android:textColor="@color/gray"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/backButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_sans_light"
+            android:gravity="center"
+            android:text="- or -"
+            android:textColor="@color/dark_blue"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/backButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/constraint_log"
+            app:layout_constraintTop_toBottomOf="@+id/reg_button" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="@color/blue1"
+            android:text="BACK TO LOGIN"
+            android:textColor="@color/dark_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

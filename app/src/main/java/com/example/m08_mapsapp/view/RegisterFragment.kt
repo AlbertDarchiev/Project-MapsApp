@@ -34,21 +34,24 @@ class RegisterFragment : Fragment() {
             val password = binding.passEText.text.toString()
             val password2 = binding.pass2EText.text.toString()
 
-            if (password2 == password) {
+            if (email == "" || password == "" || password2 == ""){
+                Toast.makeText(activity, "Fill all the fields", Toast.LENGTH_SHORT).show()
+            }
+            else if (password2 == password) {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
                             LoginFragment.emailLogged = it.result?.user?.email.toString()
-                            Toast.makeText(activity, "Usuari creat correctament", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, "User created successfully", Toast.LENGTH_SHORT).show()
                             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                         }
                     }
                     .addOnFailureListener { e ->
-                        Toast.makeText(activity, "Error ${e.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "${e.message}", Toast.LENGTH_LONG).show()
                         Log.w(TAG, "Error login", e)
                     }
             }
-            else Toast.makeText(activity, "Les contrasenyes no son iguals", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(activity, "Passwords don't match", Toast.LENGTH_SHORT).show()
 
         }
 

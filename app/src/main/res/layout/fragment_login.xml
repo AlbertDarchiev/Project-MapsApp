@@ -7,13 +7,16 @@
     android:layout_height="match_parent"
     android:background="@color/blue2"
     tools:context=".view.LoginFragment"
-    tools:ignore="UseSwitchCompatOrMaterialXml">
+    tools:ignore="UseSwitchCompatOrMaterialXml"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/img_map"
-        android:scaleType="center"/>
+        android:scaleType="center"
+        />
 
     <TextView
         android:id="@+id/title"
@@ -35,11 +38,11 @@
         android:text="Login to your account"
         android:textColor="@color/dark_blue"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraint2"
-        app:layout_constraintStart_toStartOf="@+id/constraint2" />
+        app:layout_constraintBottom_toTopOf="@+id/constraint_log"
+        app:layout_constraintStart_toStartOf="@+id/constraint_log" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint2"
+        android:id="@+id/constraint_log"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_margin="25dp"
@@ -51,15 +54,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/mail_layout"
+            android:id="@+id/layout_mail"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:boxBackgroundMode="none"
+            android:textColorHint="@color/dark_blue2"
+            app:placeholderText="Enter your Email"
             >
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/mail_eText"
                 android:layout_width="match_parent"
@@ -68,39 +72,39 @@
                 android:background="@drawable/shape_edittext"
                 android:padding="5dp"
                 android:paddingStart="15dp"
-                android:hint="Enter your Email"
+                android:hint="Email"
+                android:textColor="@color/dark_blue"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_pass"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_mail"
+            app:boxBackgroundMode="none"
+            android:textColorHint="@color/dark_blue2"
+            app:placeholderText="Enter your password"
+            android:layout_marginTop="10dp"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pass_eText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/shape_edittext"
+                android:padding="5dp"
+                android:paddingStart="15dp"
+                android:hint="Password"
+                android:inputType="textPassword"
                 android:textColor="@color/dark_blue"
-/>
+                android:focusableInTouchMode="true"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
 
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/pass_eText"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginHorizontal="5dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/shape_edittext"
-            android:hint="PASSWORD"
-            android:inputType="textPassword"
-            android:paddingStart="15dp"
-            android:textColor="@color/dark_blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mail_layout" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.53" />
-
-
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/log_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -124,10 +128,10 @@
             android:textSize="16dp"
             app:layout_constraintBottom_toTopOf="@+id/reg_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/constraint2"
+            app:layout_constraintStart_toStartOf="@+id/constraint_log"
             app:layout_constraintTop_toBottomOf="@+id/log_button" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/reg_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -145,9 +149,10 @@
             android:layout_height="wrap_content"
             android:text="Remember me"
             android:textColor="@color/dark_blue"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintBottom_toTopOf="@+id/log_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_pass" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
