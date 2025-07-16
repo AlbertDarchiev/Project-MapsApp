@@ -8,20 +8,6 @@
     android:background="@color/blue1"
     tools:context=".view.LocationDetailsFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/gray"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="EDIT LOCATION"
-        android:textColor="@color/dark_blue"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/lat_editText"
@@ -56,10 +42,11 @@
         app:layout_constraintTop_toBottomOf="@+id/lat_editText" />
 
     <TextView
-        android:layout_marginTop="15dp"
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+
         android:gravity="center"
         android:text="NAME"
         android:textColor="@color/dark_blue"
@@ -67,14 +54,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:layout_marginTop="5dp"
         android:id="@+id/title_editText"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:width="200dp"
+        android:width="250dp"
         android:background="@drawable/shape_edittext"
         android:gravity="center"
         android:hint="name"
@@ -131,7 +118,7 @@
         android:layout_height="70dp"
         android:backgroundTint="@color/blue2"
         android:text="TakePhoto"
-        android:textColor="@color/gray"
+        android:textColor="@color/dark_blue"
         app:layout_constraintBottom_toTopOf="@+id/updateButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +130,7 @@
         android:layout_height="70dp"
         android:backgroundTint="@color/blue2"
         android:text="Select Image"
-        android:textColor="@color/gray"
+        android:textColor="@color/dark_blue"
         app:layout_constraintBottom_toTopOf="@+id/updateButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
@@ -179,7 +166,7 @@
 
     <ImageView
         android:id="@+id/imageVIew"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="200dp"
         android:background="@drawable/shape_edittext"
         android:padding="10dp"

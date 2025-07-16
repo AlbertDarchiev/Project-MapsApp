@@ -80,7 +80,13 @@ class LocationDetailsFragment : Fragment() {
                     val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                     binding.imageVIew.setImageBitmap(bitmap)
                     val path = MediaStore.Images.Media.insertImage(requireContext().contentResolver, bitmap, "Title", null)
-                    imageUri = Uri.parse(path)
+
+                    if (path != null) {
+                        imageUri = Uri.parse(path)
+                    } else {
+                        Log.e("LocationDetailsFragment", "Failed to insert image into MediaStore")
+                        Toast.makeText(requireContext(), "No s'ha pogut carregar la imatge", Toast.LENGTH_SHORT).show()
+                    }
                     if (mapViewModel.imageFileIsNotNull){
                         imageUri = mapViewModel.imageFile
                         binding.imageVIew.setImageURI(imageUri)

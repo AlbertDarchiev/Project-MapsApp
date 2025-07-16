@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:text="Longitude"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/blue2"
+        android:textColor="@color/dark_blue2"
         app:layout_constraintBottom_toTopOf="@+id/locationLatitude_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4" />
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="Latitude"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/blue2"
+        android:textColor="@color/dark_blue2"
         app:layout_constraintBottom_toBottomOf="@+id/locationImage_imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4" />

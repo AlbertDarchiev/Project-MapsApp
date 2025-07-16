@@ -87,9 +87,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         getLocation()
-
-        updateMarks()
         enableLocation()
+        updateMarks()
+
         map.setOnMapLongClickListener(this) //--
     }
 
@@ -141,23 +141,24 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         when (requestCode) {
-            REQUEST_CODE_LOCATION -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.checkSelfPermission(
-                        requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    return
+            REQUEST_CODE_LOCATION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    parentFragmentManager.beginTransaction()
+                        .detach(this)
+                        .commitNow()
+
+                    parentFragmentManager.beginTransaction()
+                        .attach(this)
+                        .commitNow()
+                } else {
+                    Toast.makeText(
+                        requireContext(), "Accepta els permisos de geolocalització", Toast.LENGTH_SHORT
+                    ).show()
                 }
-                map.isMyLocationEnabled = true
-            } else {
-                Toast.makeText(
-                    requireContext(), "Accepta els permisos de geolocalització", Toast.LENGTH_SHORT
-                ).show()
             }
         }
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -169,8 +170,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
                     requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
                 return
             }
             map.isMyLocationEnabled = false
@@ -214,7 +213,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickList
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLocation() {
+    fun getLocation() {
         if (isLocationPermissionGranted()) {
             fusedLocationProviderClient.lastLocation.addOnCompleteListener {
                 val location = it.result

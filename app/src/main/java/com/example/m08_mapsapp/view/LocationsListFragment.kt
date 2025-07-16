@@ -36,7 +36,7 @@ class LocationsListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentLocationsListBinding.inflate(layoutInflater)
-        return inflater.inflate(R.layout.fragment_locations_list, container, false)
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,7 +51,7 @@ class LocationsListFragment : Fragment() {
         recyclerView.adapter = adapter
 
         binding.addLocationButton.setOnClickListener {
-            findNavController().navigate(MapFragmentDirections.actionFragmentMapToAddLocationFragment())
+            findNavController().navigate(R.id.action_fragment_list_to_addLocationFragment)
         }
 
         adapter.setOnItemClickListener(object : LocationAdapter.onItemClickListener{
